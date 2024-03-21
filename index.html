@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Online Kişisel Notlar</title>
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+<script>
+  // Firebase projenizin yapılandırmasını buraya ekleyin
+  var firebaseConfig = {
+    apiKey: "API_KEY",
+    authDomain: "PROJE_AUTH_DOMAIN",
+    projectId: "PROJE_ID",
+    storageBucket: "STORAGE_BUCKET",
+    messagingSenderId: "SENDER_ID",
+    appId: "APP_ID"
+  };
+  // Firebase'i başlat
+  firebase.initializeApp(firebaseConfig);
+  var db = firebase.firestore();
+
+  function notEkle() {
+    var notMetni = document.getElementById('notMetni').value;
+    db.collection("notlar").add({
+        metin: notMetni,
+        zaman: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then(function(docRef) {
+        console.log("Document written with ID: ", docRef.id);
+        notMetni = ''; // input alanını temizle
+        notlariYukle(); // Notları tekrar yükle
+    })
+    .catch(function(error) {
+        console.error("Error adding document: ", error);
+    });
+  }
+
+  function notlariYukle() {
+    db.collection("notlar").orderBy("zaman", "desc").get().then((querySnapshot) => {
+        const notListesi = document.getElementById('notListesi');
+        notListesi.innerHTML = ''; // Listeyi temizle
+        querySnapshot.forEach((doc) => {
+            const li = document.createElement('li');
+            li.textContent = doc.data().metin;
+            notListesi.appendChild(li);
+        });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+      notlariYukle();
+  });
+</script>
+</head>
+<body>
+<h1>Online Kişisel Notlar</h1>
+<input type="text" id="notMetni" placeholder="Bir not yazın" required>
+<button onclick="notEkle()">Not Ekle</button>
+<ul id="notListesi"></ul>
+</body>
+</html>
