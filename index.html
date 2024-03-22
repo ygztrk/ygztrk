@@ -53,6 +53,21 @@
 </script>
 </head>
 <body>
+  <h1>Kullanıcının IP Adresi</h1>
+<div id="ipAdresi">IP adresiniz yükleniyor...</div>
+
+<script>
+// IP adresini al ve göster
+fetch('https://api.ipify.org?format=json')
+.then(response => response.json())
+.then(data => {
+    document.getElementById('ipAdresi').innerHTML = 'IP Adresiniz: ' + data.ip;
+})
+.catch(error => {
+    console.error('IP adresi alınırken bir hata oluştu:', error);
+    document.getElementById('ipAdresi').innerHTML = 'IP adresiniz alınamadı.';
+});
+</script>
 <h1>Online Kişisel Notlar</h1>
 <input type="text" id="notMetni" placeholder="Bir not yazın" required>
 <button onclick="notEkle()">Not Ekle</button>
