@@ -55,22 +55,8 @@
 </head>
 <body>
   <div id="kurlar"></div>
-    <h1>Kullanıcının IP Adresi</h1>
-<div id="ipAdresi">IP adresiniz yükleniyor...</div>
-
-<script>
-// IP adresini al ve göster
-fetch('https://api.ipify.org?format=json')
-.then(response => response.json())
-.then(data => {
-    document.getElementById('ipAdresi').innerHTML = 'IP Adresiniz: ' + data.ip;
-})
-.catch(error => {
-    console.error('IP adresi alınırken bir hata oluştu:', error);
-    document.getElementById('ipAdresi').innerHTML = 'IP adresiniz alınamadı.';
-});
-  
-    // TCMB günlük döviz kuru XML verisine proxy üzerinden erişim
+  <script>
+  // TCMB günlük döviz kuru XML verisine proxy üzerinden erişim
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     const targetUrl = 'https://www.tcmb.gov.tr/kurlar/today.xml';
     fetch(proxyUrl + targetUrl)
@@ -90,6 +76,23 @@ fetch('https://api.ipify.org?format=json')
             document.getElementById('kurlar').innerHTML = htmlContent;
         })
         .catch(error => console.error('Hata:', error));
+    </script>
+    <h1>Kullanıcının IP Adresi</h1>
+<div id="ipAdresi">IP adresiniz yükleniyor...</div>
+
+<script>
+// IP adresini al ve göster
+fetch('https://api.ipify.org?format=json')
+.then(response => response.json())
+.then(data => {
+    document.getElementById('ipAdresi').innerHTML = 'IP Adresiniz: ' + data.ip;
+})
+.catch(error => {
+    console.error('IP adresi alınırken bir hata oluştu:', error);
+    document.getElementById('ipAdresi').innerHTML = 'IP adresiniz alınamadı.';
+});
+  
+    
 
 
 </script>
