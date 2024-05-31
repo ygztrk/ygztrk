@@ -3,8 +3,8 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
-  <title>Online Kişisel Notlar</title>
-  <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
+  <title>Online Kişisel Notlar ve Satranç</title>
+  <link rel="stylesheet" href="https://unpkg.com/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
   <style>
     #board {
       width: 400px;
@@ -13,8 +13,8 @@
   </style>
   <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
-  <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
   <script src="https://unpkg.com/chess.js@0.12.0/chess.js"></script>
+  <script src="https://unpkg.com/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
   <script>
     // Firebase projenizin yapılandırmasını buraya ekleyin
     var firebaseConfig = {
@@ -128,10 +128,10 @@
 <body>
   <div id="kurlar"></div>
   <script>
-  // TCMB günlük döviz kuru XML verisine proxy üzerinden erişim
-    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    // TCMB günlük döviz kuru XML verisine proxy üzerinden erişim
+    const proxyUrl = 'https://api.allorigins.win/raw?url=';
     const targetUrl = 'https://www.tcmb.gov.tr/kurlar/today.xml';
-    fetch(proxyUrl + targetUrl)
+    fetch(proxyUrl + encodeURIComponent(targetUrl))
         .then(response => response.text())
         .then(data => {
             const parser = new DOMParser();
@@ -171,4 +171,3 @@
     <div id="board"></div>
 </body>
 </html>
-
